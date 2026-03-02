@@ -1,0 +1,68 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__browser-use__*"
+    ]
+  },
+  "enabledPlugins": {
+    "browser-use@browser-use-local": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1753939327624
+  },
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.config/tmux/claude-pane-alert.sh set"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.config/tmux/claude-pane-alert.sh reset"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.config/tmux/claude-pane-alert.sh reset"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "adobe-premiere-pro": {
+      "command": "node",
+      "args": [
+        "/Users/shawnpana/Adobe_Premiere_Pro_MCP/dist/index.js"
+      ]
+    },
+    "browser-use": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/shawnpana/Projects/browser-use-pr-3999",
+        "python",
+        "-m",
+        "browser_use.skill_cli.main",
+        "--mcp"
+      ]
+    }
+  }
+}
