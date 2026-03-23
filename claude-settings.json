@@ -43,6 +43,7 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true
   },
+  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1753939327624
@@ -66,6 +67,5 @@
         "--mcp"
       ]
     }
-  },
-  "effortLevel": "high"
+  }
 }

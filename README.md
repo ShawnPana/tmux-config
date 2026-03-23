@@ -22,13 +22,15 @@ ln -sf ~/Projects/tmux-config/scripts/claude-pane-alert.sh ~/.config/tmux/claude
 # tmux-bridge CLI (global PATH)
 ln -sf ~/Projects/tmux-config/scripts/tmux-bridge /usr/local/bin/tmux-bridge
 
-# tmux-bridge skill (Claude Code)
-mkdir -p ~/.claude/skills/tmux-bridge
-ln -sf ~/Projects/tmux-config/SKILL-BRIDGE.md ~/.claude/skills/tmux-bridge/skill.md
+# Skills (Claude Code)
+mkdir -p ~/.claude/skills/tmux ~/.claude/skills/tmux-bridge
+ln -sf ~/Projects/tmux-config/skills/tmux/SKILL.md ~/.claude/skills/tmux/skill.md
+ln -sf ~/Projects/tmux-config/skills/tmux-bridge/SKILL.md ~/.claude/skills/tmux-bridge/skill.md
 
-# tmux-bridge skill (agents)
-mkdir -p ~/.agents/skills/tmux-bridge
-ln -sf ~/Projects/tmux-config/SKILL-BRIDGE.md ~/.agents/skills/tmux-bridge/SKILL.md
+# Skills (agents)
+mkdir -p ~/.agents/skills/tmux ~/.agents/skills/tmux-bridge
+ln -sf ~/Projects/tmux-config/skills/tmux/SKILL.md ~/.agents/skills/tmux/SKILL.md
+ln -sf ~/Projects/tmux-config/skills/tmux-bridge/SKILL.md ~/.agents/skills/tmux-bridge/SKILL.md
 ```
 
 Add the `rename` helper to your `.zshrc`:
