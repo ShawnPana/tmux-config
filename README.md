@@ -2,7 +2,7 @@
 
 One-command tmux setup with sensible defaults and cross-pane communication.
 
-https://github.com/ShawnPana/tmux-config/releases/download/v0.0.0-assets/tmux-bridge.mp4
+<video src="https://github.com/ShawnPana/tmux-config/releases/download/v0.0.0-assets/tmux-bridge.mp4" controls autoplay muted loop width="100%"></video>
 
 ## Install
 
