@@ -1,18 +1,15 @@
 # smux
 
-A tmux setup that gives you and your AI agents the same interface to the terminal. One command installs tmux with a keyboard-driven config, and **tmux-bridge** — a CLI that lets any agent read, type, and send keys to any tmux pane.
+One-command tmux setup with terminal automation for AI agents.
 
-This means agents can use your terminal the way you do. They can spin up panes, run commands, read output, and interact with other running processes. More importantly, agents can talk to *each other* — Claude Code can type a message into a pane running Codex, and Codex can reply back. Any agent that can run bash can participate.
-
-**How it works:** tmux-bridge gives agents atomic terminal operations — `read` a pane's output, `type` text into it, `keys` to press Enter or Ctrl+C. Agents label their panes (`tmux-bridge name %3 claude`) and address each other by name. A built-in read guard forces agents to look before they act, preventing blind input. Messages are framed with `[tmux-bridge from:claude]` so the receiving agent knows who sent it and where to reply.
+- **For you** — keyboard-driven tmux config with Option-key bindings, mouse support, and pane labels
+- **For agents** — `tmux-bridge` CLI lets any agent read, type, and send keys to any pane
+- **Agent-to-agent** — Claude Code can prompt Codex in the next pane, and Codex replies back. Any agent that can run bash can participate.
 
 ```bash
-# Agent A reads a pane, types a message, verifies, and sends
-tmux-bridge read codex 20
-tmux-bridge type codex '[tmux-bridge from:claude] Review src/auth.ts for security issues'
-tmux-bridge read codex 20
-tmux-bridge keys codex Enter
-# Codex receives the message and replies back into Claude's pane
+tmux-bridge read codex 20          # read the pane
+tmux-bridge type codex "review src/auth.ts"  # type into it
+tmux-bridge keys codex Enter       # press enter
 ```
 
 https://github.com/user-attachments/assets/9d5463ba-5972-4bbd-a07e-b585f1178011
