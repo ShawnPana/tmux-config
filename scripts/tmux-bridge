@@ -246,7 +246,7 @@ cmd_message() {
   local session_win
   session_win=$(tmx display-message -t "$sender_pane" -p '#{session_name}:#{window_index}.#{pane_index}' 2>/dev/null || true)
 
-  local header="[tmux-bridge from:${from} pane:${sender_pane} at:${session_win}]"
+  local header="[tmux-bridge from:${from} pane:${sender_pane} at:${session_win} — load the smux skill to reply]"
   tmx send-keys -t "$target" -l -- "${header} $2"
   clear_read "$target"
 }
