@@ -48,11 +48,27 @@ error: must read the pane before interacting. Run: tmux-bridge read codex
 | `tmux-bridge resolve <label>` | Print pane target for a label | `tmux-bridge resolve codex` |
 | `tmux-bridge id` | Print this pane's ID | `tmux-bridge id` |
 
+### Socket Selection
+
+`tmux-bridge` talks to one tmux server at a time. By default it auto-detects the server from the current tmux environment, which means it may miss panes running on a different socket such as `tmux -L gui`.
+
+Use `TMUX_BRIDGE_SOCKET` to point the bridge at a non-default server:
+
+```bash
+export TMUX_BRIDGE_SOCKET="$(tmux -L gui display-message -p '#{socket_path}')"
+tmux-bridge list
+tmux-bridge read claude 20
+```
+
+If a target exists in another tmux server, prefer switching the bridge to that socket over dropping immediately to raw `tmux` commands.
+
 ### Target Resolution
 
 Targets can be:
 - **tmux native**: `session:window.pane` (e.g. `shared:0.1`), pane ID (`%3`), or window index (`0`)
 - **label**: Any string set via `tmux-bridge name` — resolved automatically
+
+Bridge labels are stored with `tmux-bridge name` as pane metadata. They are not the same as tmux pane titles set with `tmux select-pane -T ...`.
 
 ### Read-Act-Read Cycle
 
@@ -67,6 +83,19 @@ tmux-bridge read codex 20                    # 3. READ — verify text landed
 tmux-bridge keys codex Enter                 # 4. KEYS — submit
 # STOP. Do NOT read codex for a reply. The agent replies into YOUR pane.
 ```
+
+`tmux-bridge message` requires the sender to be inside tmux so it can include `TMUX_PANE` in the reply header. If you are running outside tmux, `message` will fail with `not running inside a tmux pane`.
+
+In that case, use `type` plus `Enter` instead:
+
+```bash
+tmux-bridge read claude 20
+tmux-bridge type claude 'Test from Codex via tmux-bridge on the gui socket.'
+tmux-bridge read claude 20
+tmux-bridge keys claude Enter
+```
+
+This still delivers the message, but it does not include an automatic reply target.
 
 **Approving a prompt (non-agent pane):**
 ```bash
@@ -202,6 +231,9 @@ done
 - **Every action clears the read mark** — after `type`, read again before `keys`
 - **Never wait or poll** — agent panes reply via tmux-bridge into YOUR pane
 - **Label panes early** — easier than using `%N` IDs
+- **Set `TMUX_BRIDGE_SOCKET` for non-default tmux servers** — especially for `tmux -L <name>` sessions
+- **`tmux-bridge name` labels are not pane titles** — `select-pane -T` does not make a bridge label
+- **`message` needs a tmux sender pane** — outside tmux, use `type` plus `Enter`
 - **`type` uses literal mode** — special characters are typed as-is
 - **`read` defaults to 50 lines** — pass a higher number for more context
 - **Non-agent panes** are the exception — you DO need to read them to see output

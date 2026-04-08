@@ -74,10 +74,18 @@ A CLI for cross-pane communication. Any tool that can run bash can use it — Cl
 | `tmux-bridge list` | Show all panes with target, process, label |
 | `tmux-bridge read <target> [lines]` | Read last N lines from a pane |
 | `tmux-bridge type <target> <text>` | Type text into a pane (no Enter) |
+| `tmux-bridge message <target> <text>` | Type text with auto sender info and reply target |
 | `tmux-bridge keys <target> <key>...` | Send keys (Enter, Escape, C-c, etc.) |
 | `tmux-bridge name <target> <label>` | Label a pane for easy addressing |
 | `tmux-bridge resolve <label>` | Look up a pane by label |
 | `tmux-bridge id` | Print this pane's ID |
+
+If your target pane lives on a non-default tmux socket, point the bridge at that server first:
+
+```bash
+export TMUX_BRIDGE_SOCKET="$(tmux -L gui display-message -p '#{socket_path}')"
+tmux-bridge list
+```
 
 See the [smux skill](skills/smux/SKILL.md) for full documentation on agent-to-agent workflows.
 
