@@ -276,7 +276,16 @@ EOF
 
 # --- Main ---
 
-case "${1:-install}" in
+# When invoked as the installed `smux` CLI, default to help (no-op).
+# When invoked as install.sh (curl-pipe or `bash install.sh`), default to install.
+_smux_script="${BASH_SOURCE[0]:-}"
+if [[ -n "$_smux_script" && "$(basename "$_smux_script")" == "smux" ]]; then
+  _smux_default="help"
+else
+  _smux_default="install"
+fi
+
+case "${1:-$_smux_default}" in
   install)                    cmd_install ;;
   update)                     cmd_update ;;
   uninstall|remove)           cmd_uninstall ;;

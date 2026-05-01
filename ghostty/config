@@ -1,0 +1,13 @@
+keybind = alt+j=goto_split:left
+keybind = alt+l=goto_split:right
+keybind = alt+i=goto_split:up
+keybind = alt+k=goto_split:down
+keybind = alt+n=new_split:auto
+keybind = alt+w=close_surface
+keybind = alt+f=toggle_split_zoom
+keybind = alt+m=new_tab
+keybind = alt+u=next_tab
+keybind = alt+h=previous_tab
+
+theme = Terminal Basic Dark
+background = #131313
